@@ -22,7 +22,7 @@ class CoursesPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
     // ugly way to update state in redux
-    this.props.dispatch(courseActions.createCourse(this.state.course.title));
+    this.props.dispatch(courseActions.createCourse(this.state.course));
   };
 
   render() {
@@ -36,12 +36,16 @@ class CoursesPage extends Component {
           value={this.state.course.title}
         />
         <input type="submit" value="Save" />
+        {this.props.courses.map(course => (
+          <div key={course.title}>{course.title}</div>
+        ))}
       </form>
     );
   }
 }
 
 CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
