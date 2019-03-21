@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as courseActions from '../../redux/actions/courseActions';
 
 class CoursesPage extends Component {
   state = {
@@ -17,7 +20,8 @@ class CoursesPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    alert(this.state.course.title);
+    // ugly way to update state in redux
+    this.props.dispatch(courseActions.createCourse(this.state.course.title));
   };
 
   render() {
@@ -36,4 +40,12 @@ class CoursesPage extends Component {
   }
 }
 
-export default CoursesPage;
+function mapStateToProps(state) {
+  return {
+    // Request only the store data you need to avoid needless re-renders
+    courses: state.courses
+  };
+}
+
+// Omitting mapDispatchToProps automatically injects a dispatch prop into the component
+export default connect(mapStateToProps)(CoursesPage);
