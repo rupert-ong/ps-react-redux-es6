@@ -21,8 +21,7 @@ class CoursesPage extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // ugly way to update state in redux
-    this.props.dispatch(courseActions.createCourse(this.state.course));
+    this.props.createCourse(this.state.course);
   };
 
   render() {
@@ -46,7 +45,8 @@ class CoursesPage extends Component {
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  createCourse: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -56,5 +56,14 @@ function mapStateToProps(state) {
   };
 }
 
-// Omitting mapDispatchToProps automatically injects a dispatch prop into the component
-export default connect(mapStateToProps)(CoursesPage);
+// Manually mapping of dispatch actions to mapDispatchToProps
+function mapDispatchToProps(dispatch) {
+  return {
+    createCourse: course => dispatch(courseActions.createCourse(course))
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CoursesPage);
