@@ -13,6 +13,7 @@ function ManageCoursePage({
   loadCourses,
   saveCourse,
   loadAuthors,
+  history,
   ...props
 }) {
   const [course, setCourse] = useState({ ...props.course });
@@ -38,7 +39,8 @@ function ManageCoursePage({
 
   function handleSave(e) {
     e.preventDefault();
-    saveCourse(course);
+    // Any component loaded via <Route> gets a history props from React Router
+    saveCourse(course).then(() => history.push('/courses'));
   }
 
   return (
@@ -58,7 +60,8 @@ ManageCoursePage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
-  saveCourse: PropTypes.func.isRequired
+  saveCourse: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
