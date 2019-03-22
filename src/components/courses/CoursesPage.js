@@ -8,10 +8,6 @@ import * as authorActions from '../../redux/actions/authorActions';
 import CourseList from './CourseList';
 
 class CoursesPage extends Component {
-  state = {
-    redirectToAddCoursePage: false
-  };
-
   componentDidMount() {
     const { courses, authors, actions } = this.props;
 
@@ -32,13 +28,11 @@ class CoursesPage extends Component {
   render() {
     return (
       <>
-        {this.state.redirectToAddCoursePage &&
-          this.props.history.push('/course/')}
         <h2>Courses</h2>
         <button
           className="btn btn-primary"
           style={{ marginBottom: 20 }}
-          onClick={() => this.setState({ redirectToAddCoursePage: true })}
+          onClick={() => this.props.history.push('/course/')}
         >
           Add Course
         </button>
