@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as courseActions from '../../redux/actions/courseActions';
 import * as authorActions from '../../redux/actions/authorActions';
 import CourseList from './CourseList';
+import Spinner from '../common/Spinner';
 
 class CoursesPage extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class CoursesPage extends Component {
     return (
       <>
         <h2>Courses</h2>
+        <Spinner />
         <button
           className="btn btn-primary"
           style={{ marginBottom: 20 }}
