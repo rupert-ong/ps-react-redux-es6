@@ -30,15 +30,20 @@ class CoursesPage extends Component {
     return (
       <>
         <h2>Courses</h2>
-        <Spinner />
-        <button
-          className="btn btn-primary"
-          style={{ marginBottom: 20 }}
-          onClick={() => this.props.history.push('/course/')}
-        >
-          Add Course
-        </button>
-        <CourseList courses={this.props.courses} />
+        {this.props.loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <button
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+              onClick={() => this.props.history.push('/course/')}
+            >
+              Add Course
+            </button>
+            <CourseList courses={this.props.courses} />
+          </>
+        )}
       </>
     );
   }
@@ -47,6 +52,7 @@ class CoursesPage extends Component {
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
@@ -66,7 +72,8 @@ function mapStateToProps(state) {
               ).name
             };
           }),
-    authors: state.authors
+    authors: state.authors,
+    loading: state.apiCallsInProgress > 0
   };
 }
 
