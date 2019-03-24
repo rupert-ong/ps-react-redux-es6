@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import { loadCourses, saveCourse } from '../../redux/actions/courseActions';
 import { loadAuthors } from '../../redux/actions/authorActions';
 import PropTypes from 'prop-types';
@@ -46,7 +48,10 @@ function ManageCoursePage({
     e.preventDefault();
     setSaving(true);
     // Any component loaded via <Route> gets a history props from React Router
-    saveCourse(course).then(() => history.push('/courses'));
+    saveCourse(course).then(() => {
+      toast.success('Course saved');
+      history.push('/courses');
+    });
   }
 
   return authors.length === 0 || course.length === 0 ? (
