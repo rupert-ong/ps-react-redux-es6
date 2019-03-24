@@ -19,6 +19,7 @@ function ManageCoursePage({
 }) {
   const [course, setCourse] = useState({ ...props.course });
   const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (courses.length === 0) {
@@ -43,6 +44,7 @@ function ManageCoursePage({
 
   function handleSave(e) {
     e.preventDefault();
+    setSaving(true);
     // Any component loaded via <Route> gets a history props from React Router
     saveCourse(course).then(() => history.push('/courses'));
   }
@@ -56,6 +58,7 @@ function ManageCoursePage({
       authors={authors}
       onChange={handleChange}
       onSave={handleSave}
+      saving={saving}
     />
   );
 }
