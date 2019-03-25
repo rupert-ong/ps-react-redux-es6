@@ -44,8 +44,22 @@ function ManageCoursePage({
     }));
   }
 
+  function isFormValid() {
+    const { title, authorId, category } = course;
+    const errors = {};
+
+    if (!title) errors.title = 'Title is required';
+    if (!authorId) errors.author = 'Author is required';
+    if (!category) errors.category = 'Category is required';
+
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  }
+
   function handleSave(e) {
     e.preventDefault();
+    if (!isFormValid()) return;
+
     setSaving(true);
     // Any component loaded via <Route> gets a history props from React Router
     saveCourse(course)
