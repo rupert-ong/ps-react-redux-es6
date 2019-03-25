@@ -56,21 +56,19 @@ function ManageCoursePage({
     return Object.keys(errors).length === 0;
   }
 
-  function handleSave(e) {
+  async function handleSave(e) {
     e.preventDefault();
-    if (!isFormValid()) return;
-
     setSaving(true);
-    // Any component loaded via <Route> gets a history props from React Router
-    saveCourse(course)
-      .then(() => {
-        toast.success('Course saved');
-        history.push('/courses');
-      })
-      .catch(error => {
-        setSaving(false);
-        setErrors({ onSave: error.message });
-      });
+
+    if (!isFormValid()) return;
+    try {
+      await saveCourse(course);
+      toast.success('Course saved');
+      history.push('/courses');
+    } catch (error) {
+      setSaving(false);
+      setErrors({ onSave: error.message });
+    }
   }
 
   return authors.length === 0 || course.length === 0 ? (
