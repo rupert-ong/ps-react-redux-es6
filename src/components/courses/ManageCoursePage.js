@@ -10,7 +10,7 @@ import CourseForm from './CourseForm';
 import { newCourse } from '../../../tools/mockData';
 import Spinner from '../common/Spinner';
 
-function ManageCoursePage({
+export function ManageCoursePage({
   courses,
   authors,
   loadCourses,
