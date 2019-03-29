@@ -24,6 +24,8 @@ export function ManageCoursePage({
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!props.course.hasOwnProperty('id')) history.push('/404');
+
     if (courses.length === 0) {
       loadCourses().catch(error => alert(`Loading courses failed: ${error}`));
     } else {
@@ -106,8 +108,9 @@ function mapStateToProps(state, ownProps) {
     slug && state.courses.length > 0
       ? getCourseBySlug(state.courses, slug)
       : newCourse;
+
   return {
-    course,
+    course: course ? course : {},
     courses: state.courses,
     authors: state.authors
   };
