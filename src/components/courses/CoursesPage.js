@@ -37,9 +37,11 @@ class CoursesPage extends Component {
   };
 
   render() {
+    const courseTerm = this.props.courses.length === 1 ? 'Course' : 'Courses';
+    const headerOutput = `${this.props.courses.length} ${courseTerm}`;
     return (
       <>
-        <h2>Courses</h2>
+        <h2>{headerOutput}</h2>
         {this.props.loading ? (
           <Spinner />
         ) : (
@@ -51,10 +53,14 @@ class CoursesPage extends Component {
             >
               Add Course
             </button>
-            <CourseList
-              courses={this.props.courses}
-              onDeleteClick={this.handleDeleteCourse}
-            />
+            {this.props.courses.length > 0 ? (
+              <CourseList
+                courses={this.props.courses}
+                onDeleteClick={this.handleDeleteCourse}
+              />
+            ) : (
+              <p>No courses found. Please add a course.</p>
+            )}
           </>
         )}
       </>
