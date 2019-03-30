@@ -32,9 +32,12 @@ function AuthorsPage({ authors, courses, actions, loading }) {
     }
   }
 
+  const authorTerm = authors.length === 1 ? 'Author' : 'Authors';
+  const headerOutput = `${authors.length} ${authorTerm}`;
+
   return (
     <>
-      <h2>Authors</h2>
+      <h2>{headerOutput}</h2>
       {loading ? (
         <Spinner />
       ) : (
