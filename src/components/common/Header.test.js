@@ -6,7 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 // Can search for React Component using Shallow render
 it('contains 3 NavLinks via shallow', () => {
   const numLinks = shallow(<Header />).find('NavLink').length;
-  expect(numLinks).toEqual(3);
+  expect(numLinks).toEqual(4);
 });
 
 // Must search the final rendered HTML in Mounted render as DOM is generated
@@ -17,5 +17,5 @@ it('contains 3 anchors via mount', () => {
       <Header />
     </MemoryRouter>
   ).find('a').length;
-  expect(numAnchors).toEqual(3);
+  expect(numAnchors).toEqual(4);
 });
