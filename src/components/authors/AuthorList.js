@@ -7,6 +7,7 @@ const AuthorList = ({ authors }) => (
       <tr>
         <th width="150" />
         <th>Name</th>
+        <th>Number of Courses</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@ const AuthorList = ({ authors }) => (
               </a>
             </td>
             <td>{author.name}</td>
+            <td>{author.numCourses && author.numCourses}</td>
           </tr>
         );
       })}
