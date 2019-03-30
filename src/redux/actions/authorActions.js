@@ -6,6 +6,10 @@ export function loadAuthorsSuccess(authors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
 }
 
+export function deleteAuthorOptimistic(author) {
+  return { type: types.DELETE_AUTHOR_OPTIMISTIC, author };
+}
+
 // Thunks
 export function loadAuthors() {
   return function(dispatch) {
@@ -19,5 +23,12 @@ export function loadAuthors() {
         dispatch(apiCallError(error));
         throw error;
       });
+  };
+}
+
+export function deleteAuthor(author) {
+  return function(dispatch) {
+    dispatch(deleteAuthorOptimistic(author));
+    return authorApi.deleteAuthor(author.id);
   };
 }

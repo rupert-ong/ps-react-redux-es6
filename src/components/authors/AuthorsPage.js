@@ -7,33 +7,47 @@ import * as authorActions from '../../redux/actions/authorActions';
 import * as courseActions from '../../redux/actions/courseActions';
 import Spinner from '../common/Spinner';
 import AuthorList from './AuthorList';
+import { toast } from 'react-toastify';
 
 function AuthorsPage({ authors, courses, actions, loading }) {
   useEffect(() => {
     if (authors.length === 0) {
-      actions.loadAuthors().catch(error => {
-        alert('Loading authors failed ' + error);
-      });
+      actions
+        .loadAuthors()
+        .catch(error => alert('Loading authors failed ' + error));
     }
     if (courses.length === 0) {
-      actions.loadCourses().catch(error => {
-        alert('Loading courses failed ' + error);
-      });
+      actions
+        .loadCourses()
+        .catch(error => alert('Loading courses failed ' + error));
     }
   }, []);
+
+  async function handleDeleteAuthor(author) {
+    toast.success('Author deleted');
+    try {
+      await actions.deleteAuthor(author);
+    } catch (error) {
+      toast.error('Delete failed. ' + error, { autoClose: false });
+    }
+  }
 
   return (
     <>
       <h2>Authors</h2>
-      {loading ? <Spinner /> : <AuthorList authors={authors} />}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <AuthorList authors={authors} onDeleteClick={handleDeleteAuthor} />
+      )}
     </>
   );
 }
 
 AuthorsPage.propTypes = {
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
@@ -46,7 +60,7 @@ function mapStateToProps(state) {
             return {
               ...author,
               numCourses: state.courses.filter(
-                course => course.authorId == author.id
+                course => course.authorId === author.id
               ).length
             };
           }),
@@ -59,6 +73,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
+      deleteAuthor: bindActionCreators(authorActions.deleteAuthor, dispatch),
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch)
     }
   };

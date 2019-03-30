@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const AuthorList = ({ authors }) => (
+const AuthorList = ({ authors, onDeleteClick }) => (
   <table className="table">
     <thead>
       <tr>
         <th width="150" />
         <th>Name</th>
         <th>Number of Courses</th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -23,7 +24,17 @@ const AuthorList = ({ authors }) => (
               </a>
             </td>
             <td>{author.name}</td>
-            <td>{author.numCourses && author.numCourses}</td>
+            <td>{author.numCourses}</td>
+            <td>
+              {author.numCourses === 0 && (
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => onDeleteClick(author)}
+                >
+                  Delete
+                </button>
+              )}
+            </td>
           </tr>
         );
       })}
@@ -32,7 +43,8 @@ const AuthorList = ({ authors }) => (
 );
 
 AuthorList.propTypes = {
-  authors: PropTypes.array.isRequired
+  authors: PropTypes.array.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 
 export default AuthorList;
