@@ -11,7 +11,7 @@ import configureMockStore from 'redux-mock-store';
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 
-describe('Async Actions', () => {
+describe('Course Actions Async Tests', () => {
   afterEach(() => {
     fetchMock.restore();
   });
