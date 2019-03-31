@@ -61,9 +61,9 @@ export function ManageCoursePage({
 
   async function handleSave(e) {
     e.preventDefault();
+    if (!isFormValid()) return;
     setSaving(true);
 
-    if (!isFormValid()) return;
     try {
       await saveCourse(course);
       toast.success('Course saved');
