@@ -39,8 +39,20 @@ function ManageAuthorPage({
     }));
   }
 
+  function isFormValid() {
+    console.log(author);
+    const { name } = author;
+    const errors = {};
+
+    if (!name) errors.name = 'Name is required';
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  }
+
   async function handleSave(e) {
     e.preventDefault();
+    if (!isFormValid()) return;
     setSaving(true);
 
     try {
@@ -80,7 +92,6 @@ export function getAuthorBySlug(authors, slug) {
 
 function mapStateToProps(state, ownProps) {
   const slug = ownProps.match.params.slug;
-  console.log(slug);
   const currentAuthor =
     slug && state.authors.length > 0
       ? getAuthorBySlug(state.authors, slug)
