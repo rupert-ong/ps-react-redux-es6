@@ -10,6 +10,7 @@ import CoursesPage from './courses/CoursesPage';
 import ManageCoursePage from './courses/ManageCoursePage'; // eslint-disable-line import/no-named-as-default
 import PageNotFound from './PageNotFound';
 import AuthorsPage from './authors/AuthorsPage';
+import ManageAuthorPage from './authors/ManageAuthorPage';
 
 const App = () => (
   <div className="container-fluid">
@@ -21,6 +22,7 @@ const App = () => (
       <Route path="/course/:slug" component={ManageCoursePage} />
       <Route path="/course/" component={ManageCoursePage} />
       <Route path="/authors" component={AuthorsPage} />
+      <Route path="/author/" component={ManageAuthorPage} />
       <Route component={PageNotFound} />
     </Switch>
     <ToastContainer autoClose={3000} hideProgressBar />

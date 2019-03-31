@@ -9,7 +9,7 @@ import Spinner from '../common/Spinner';
 import AuthorList from './AuthorList';
 import { toast } from 'react-toastify';
 
-function AuthorsPage({ authors, courses, actions, loading }) {
+function AuthorsPage({ authors, courses, actions, loading, history }) {
   useEffect(() => {
     if (authors.length === 0) {
       actions
@@ -38,6 +38,13 @@ function AuthorsPage({ authors, courses, actions, loading }) {
   return (
     <>
       <h2>{headerOutput}</h2>
+      <button
+        style={{ marginBottom: 20 }}
+        className="btn btn-primary"
+        onClick={() => history.push('/author/')}
+      >
+        Add Author
+      </button>
       {loading ? (
         <Spinner />
       ) : (
@@ -51,7 +58,8 @@ AuthorsPage.propTypes = {
   authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
