@@ -15,7 +15,8 @@ function render(args) {
     loadCourses: jest.fn(),
     /* React Router injected props (could of used MemoryRouter wrapper) */
     history: {},
-    match: {}
+    match: {},
+    loading: false
   };
 
   const props = { ...defaultProps, ...args };
