@@ -10,7 +10,7 @@ import { newAuthor } from '../../../tools/mockData';
 import AuthorForm from './AuthorForm';
 import Spinner from '../common/Spinner';
 
-function ManageAuthorPage({
+export function ManageAuthorPage({
   currentAuthor,
   authors,
   loading,
@@ -40,7 +40,6 @@ function ManageAuthorPage({
   }
 
   function isFormValid() {
-    console.log(author);
     const { name } = author;
     const errors = {};
 

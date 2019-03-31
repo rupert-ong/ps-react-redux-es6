@@ -10,7 +10,7 @@ import CoursesPage from './courses/CoursesPage';
 import ManageCoursePage from './courses/ManageCoursePage'; // eslint-disable-line import/no-named-as-default
 import PageNotFound from './PageNotFound';
 import AuthorsPage from './authors/AuthorsPage';
-import ManageAuthorPage from './authors/ManageAuthorPage';
+import ManageAuthorPage from './authors/ManageAuthorPage'; // eslint-disable-line import/no-named-as-default
 
 const App = () => (
   <div className="container-fluid">
