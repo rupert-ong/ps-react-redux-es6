@@ -53,7 +53,6 @@ describe('AuthorForm', () => {
     });
 
     it('fills in name input with current name', () => {
-      console.log(wrapper.find('TextInput'));
       expect(wrapper.find('TextInput').prop('value')).toEqual('Rupert Ong');
     });
   });
