@@ -13,6 +13,7 @@ import Spinner from '../common/Spinner';
 export function ManageCoursePage({
   courses,
   authors,
+  loading,
   loadCourses,
   saveCourse,
   loadAuthors,
@@ -73,7 +74,7 @@ export function ManageCoursePage({
     }
   }
 
-  return authors.length === 0 || courses.length === 0 ? (
+  return (authors.length === 0 || courses.length === 0) && loading ? (
     <Spinner />
   ) : (
     <CourseForm
@@ -91,6 +92,7 @@ ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
@@ -112,7 +114,8 @@ function mapStateToProps(state, ownProps) {
   return {
     course: course ? course : {},
     courses: state.courses,
-    authors: state.authors
+    authors: state.authors,
+    loading: state.apiCallInProgress > 0
   };
 }
 

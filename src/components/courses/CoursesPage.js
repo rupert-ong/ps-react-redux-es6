@@ -81,7 +81,7 @@ function mapStateToProps(state) {
     // Request only the store data you need to avoid needless re-renders
     // Enhance courses to add author name (courses contains normalized id info on author, not author name)
     courses:
-      state.authors.length === 0
+      state.authors.length === 0 && state.loading
         ? []
         : state.courses.map(course => {
             return {
