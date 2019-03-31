@@ -10,6 +10,10 @@ export function createAuthorSuccess(author) {
   return { type: types.CREATE_AUTHOR_SUCCESS, author };
 }
 
+export function updateAuthorSuccess(author) {
+  return { type: types.UPDATE_AUTHOR_SUCCESS, author };
+}
+
 export function deleteAuthorOptimistic(author) {
   return { type: types.DELETE_AUTHOR_OPTIMISTIC, author };
 }
@@ -36,7 +40,9 @@ export function saveAuthor(author) {
     return authorApi
       .saveAuthor(author)
       .then(savedAuthor => {
-        dispatch(createAuthorSuccess(savedAuthor));
+        author.id
+          ? dispatch(updateAuthorSuccess(savedAuthor))
+          : dispatch(createAuthorSuccess(savedAuthor));
       })
       .catch(error => {
         dispatch(apiCallError(error));
