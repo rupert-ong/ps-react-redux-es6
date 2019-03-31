@@ -8,17 +8,28 @@ import { bindActionCreators } from '../../../../../AppData/Local/Microsoft/TypeS
 
 import { newAuthor } from '../../../tools/mockData';
 import AuthorForm from './AuthorForm';
+import Spinner from '../common/Spinner';
 
-function ManageAuthorPage({ currentAuthor, actions, history }) {
+function ManageAuthorPage({
+  currentAuthor,
+  authors,
+  loading,
+  actions,
+  history
+}) {
   const [author, setAuthor] = useState({ ...currentAuthor });
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    actions
-      .loadAuthors()
-      .catch(error => alert(`Loading authors failed: ${error}`));
-  }, []);
+    if (authors.length === 0) {
+      actions
+        .loadAuthors()
+        .catch(error => alert(`Loading authors failed: ${error}`));
+    } else {
+      setAuthor(currentAuthor);
+    }
+  }, [currentAuthor]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -42,7 +53,9 @@ function ManageAuthorPage({ currentAuthor, actions, history }) {
     }
   }
 
-  return (
+  return authors.length === 0 && loading ? (
+    <Spinner />
+  ) : (
     <AuthorForm
       author={author}
       onChange={handleChange}
@@ -54,14 +67,28 @@ function ManageAuthorPage({ currentAuthor, actions, history }) {
 }
 
 ManageAuthorPage.propTypes = {
+  authors: PropTypes.array.isRequired,
   currentAuthor: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
   actions: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired
 };
 
-function mapStateToProps() {
+export function getAuthorBySlug(authors, slug) {
+  return authors.find(author => author.slug === slug) || null;
+}
+
+function mapStateToProps(state, ownProps) {
+  const slug = ownProps.match.params.slug;
+  console.log(slug);
+  const currentAuthor =
+    slug && state.authors.length > 0
+      ? getAuthorBySlug(state.authors, slug)
+      : newAuthor;
   return {
-    currentAuthor: newAuthor
+    currentAuthor: currentAuthor ? currentAuthor : {},
+    authors: state.authors,
+    loading: state.apiCallsInProgress > 0
   };
 }
 

@@ -47,8 +47,10 @@ function AuthorsPage({ authors, courses, actions, loading, history }) {
       </button>
       {loading ? (
         <Spinner />
-      ) : (
+      ) : authors.length > 0 ? (
         <AuthorList authors={authors} onDeleteClick={handleDeleteAuthor} />
+      ) : (
+        <p>No authors found. Please add an author.</p>
       )}
     </>
   );
@@ -65,7 +67,7 @@ AuthorsPage.propTypes = {
 function mapStateToProps(state) {
   return {
     authors:
-      state.courses.length === 0
+      state.courses.length === 0 && state.loading
         ? state.authors
         : state.authors.map(author => {
             return {

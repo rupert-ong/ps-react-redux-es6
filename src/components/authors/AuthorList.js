@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const AuthorList = ({ authors, onDeleteClick }) => (
   <table className="table">
@@ -23,7 +24,9 @@ const AuthorList = ({ authors, onDeleteClick }) => (
                 View Profile
               </a>
             </td>
-            <td>{author.name}</td>
+            <td>
+              <Link to={'/author/' + author.slug}>{author.name}</Link>
+            </td>
             <td>{author.numCourses}</td>
             <td>
               {author.numCourses === 0 && (
